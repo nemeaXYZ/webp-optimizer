@@ -7,14 +7,14 @@ const run = async () => {
   console.log("->> Locating images…");
 
   const results = await processImages();
-
+  /*
   const optimisedImages = results.images.filter(
     img => img.compressionWasSignificant
-  );
+  );*/
 
   // If nothing was optimised, bail out.
   if (!optimisedImages.length) {
-    console.log("::warning:: Nothing left to optimise. Stopping…");
+    console.log("::warning:: Nothing left to convert. Stopping…");
     return;
   }
 

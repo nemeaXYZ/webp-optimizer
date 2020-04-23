@@ -18,8 +18,8 @@ const IGNORE_PATHS = process.env["INPUT_IGNOREPATHS"]
   : ["node_modules/**"];
 
 const COMMITTER = {
-  name: "Calibre",
-  email: "hello@calibreapp.com"
+  name: "Nemea",
+  email: "a@nemea.xyz",
 };
 
 if (!REPO_DIRECTORY) {
@@ -29,14 +29,14 @@ if (!REPO_DIRECTORY) {
 
 const CONFIG_PATH = path.join(
   REPO_DIRECTORY,
-  ".github/calibre/image-actions.yml"
+  ".github/nemeaXYZ/webp-optimizer.yml"
 );
 
 const EXTENSION_TO_SHARP_FORMAT_MAPPING = {
   ".png": "png",
   ".jpeg": "jpeg",
   ".jpg": "jpeg",
-  ".webp": "webp"
+  ".webp": "webp",
 };
 
 module.exports = {
@@ -53,5 +53,5 @@ module.exports = {
   JPEG_QUALITY,
   PNG_QUALITY,
   WEBP_QUALITY,
-  IGNORE_PATHS
+  IGNORE_PATHS,
 };

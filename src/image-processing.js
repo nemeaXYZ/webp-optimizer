@@ -8,14 +8,14 @@ const getConfig = require("./config");
 
 const {
   REPO_DIRECTORY,
-  EXTENSION_TO_SHARP_FORMAT_MAPPING
+  EXTENSION_TO_SHARP_FORMAT_MAPPING,
 } = require("./constants");
 
 const processImages = async () => {
   const config = await getConfig();
   const imagePaths = await glob(`${REPO_DIRECTORY}/**/*.{jpg,png,webp}`, {
-    ignore: config.ignorePaths.map(p => path.resolve(REPO_DIRECTORY, p)),
-    nodir: true
+    ignore: config.ignorePaths.map((p) => path.resolve(REPO_DIRECTORY, p)),
+    nodir: true,
   });
 
   const images = [];
@@ -23,13 +23,13 @@ const processImages = async () => {
   for await (const imgPath of imagePaths) {
     const extension = path.extname(imgPath);
     const sharpFormat = EXTENSION_TO_SHARP_FORMAT_MAPPING[extension];
-    const options = config[sharpFormat];
+    const quality = config[sharpFormat];
     const beforeStats = (await fs.stat(imgPath)).size;
     console.log("    - Processing:", imgPath);
 
     try {
       const processedImageBuffer = await sharp(imgPath)
-        .toFormat(sharpFormat, options)
+        .webp({ quality: quality })
         .toBuffer();
 
       await fs.writeFile(imgPath, processedImageBuffer);
@@ -52,7 +52,7 @@ const processImages = async () => {
       beforeStats,
       afterStats,
       percentChange,
-      compressionWasSignificant
+      compressionWasSignificant,
     });
   }
 
@@ -60,11 +60,11 @@ const processImages = async () => {
 
   return {
     images,
-    metrics
+    metrics,
   };
 };
 
-const calculateOverallMetrics = async images => {
+const calculateOverallMetrics = async (images) => {
   let bytesBeforeCompression = 0;
   let bytesAfterCompression = 0;
 
@@ -81,7 +81,7 @@ const calculateOverallMetrics = async images => {
 
   return {
     bytesSaved,
-    percentChange
+    percentChange,
   };
 };
 
