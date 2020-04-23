@@ -6,7 +6,7 @@ const results = {
       beforeStats: 8914,
       afterStats: 3361,
       percentChange: -62.29526587390622,
-      compressionWasSignificant: true
+      compressionWasSignificant: true,
     },
     {
       name: "optimised-image.png",
@@ -14,7 +14,7 @@ const results = {
       beforeStats: 3361,
       afterStats: 3361,
       percentChange: 0,
-      compressionWasSignificant: false
+      compressionWasSignificant: false,
     },
     {
       name: "roo.jpg",
@@ -22,19 +22,19 @@ const results = {
       beforeStats: 468895,
       afterStats: 485742,
       percentChange: 3.592915258213452,
-      compressionWasSignificant: false
-    }
+      compressionWasSignificant: false,
+    },
   ],
   metrics: {
     bytesSaved: 5553,
-    percentChange: -62.29526587390622
-  }
+    percentChange: -62.29526587390622,
+  },
 };
 
 const markdown = require("../src/github-markdown");
 
 const referenceMarkdown = `
-Images automagically compressed by [Calibre](https://calibreapp.com)'s [image-actions](https://github.com/marketplace/actions/image-actions) ✨
+Images automagically compressed by [Calibre](https://calibreapp.com)'s [webp-optimizer](https://github.com/marketplace/actions/webp-optimizer) ✨
 
 Compression reduced images by 62.3%, saving 5.42 KB
 

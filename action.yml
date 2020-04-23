@@ -1,21 +1,11 @@
-name: "Image Actions"
-author: "Calibre"
+name: "WebP Optimizer Actions"
+author: "Nemea"
 description: "Compresses Images for the Web"
 
 inputs:
   githubToken:
     description: "GitHub Token"
     required: true
-
-  jpegQuality:
-    description: "JPEG quality level"
-    required: false
-    default: "80"
-
-  pngQuality:
-    description: "PNG quality level"
-    required: false
-    default: "80"
 
   webpQuality:
     description: "WEBP quality level"
@@ -29,7 +19,7 @@ inputs:
 
 runs:
   using: "docker"
-  image: "docker://calibreapp/github-image-actions" 
+  image: "docker://calibreapp/github-webp-optimizer"
 
 branding:
   icon: "image"

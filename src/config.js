@@ -2,11 +2,12 @@ const fs = require("fs").promises;
 
 const yaml = require("js-yaml");
 
-const { CONFIG_PATH,
+const {
+  CONFIG_PATH,
   JPEG_QUALITY,
   PNG_QUALITY,
   WEBP_QUALITY,
-  IGNORE_PATHS
+  IGNORE_PATHS,
 } = require("./constants");
 
 const getYamlConfig = async () => {
@@ -23,7 +24,7 @@ const getConfig = async () => {
     jpeg: { quality: JPEG_QUALITY },
     png: { quality: PNG_QUALITY },
     webp: { quality: WEBP_QUALITY },
-    ignorePaths: IGNORE_PATHS
+    ignorePaths: IGNORE_PATHS,
   };
 
   const ymlConfig = await getYamlConfig();
@@ -38,7 +39,9 @@ const getConfig = async () => {
   );
 
   if (ymlConfig) {
-    console.error("::warning:: Using image-actions.yml for configuration is deprecated. See https://github.com/calibreapp/image-actions for the latest configuration options.");
+    console.error(
+      "::warning:: Using webp-optimizer.yml for configuration is deprecated. See https://github.com/calibreapp/webp-optimizer for the latest configuration options."
+    );
   }
 
   console.log("->> Using config:", JSON.stringify(config));

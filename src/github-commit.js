@@ -14,7 +14,7 @@ const convertToTreeBlobs = async ({ owner, repo, images }) => {
       owner,
       repo,
       content: encodedImage,
-      encoding: "base64"
+      encoding: "base64",
     });
 
     // We use image.name rather than image.path because it is the path inside the repo
@@ -23,14 +23,14 @@ const convertToTreeBlobs = async ({ owner, repo, images }) => {
       path: image.name,
       type: "blob",
       mode: "100644",
-      sha: blob.data.sha
+      sha: blob.data.sha,
     });
   }
 
   return imageBlobs;
 };
 
-const commitOptimisedImages = async optimisedImages => {
+const commitOptimisedImages = async (optimisedImages) => {
   const event = await githubEvent();
   const owner = event.repository.owner.login;
   const repo = event.repository.name;
@@ -42,7 +42,7 @@ const commitOptimisedImages = async optimisedImages => {
   const latestCommit = await api.git.getCommit({
     owner,
     repo,
-    commit_sha: mostRecentCommitSHA
+    commit_sha: mostRecentCommitSHA,
   });
 
   const baseTree = latestCommit.data.tree.sha;
@@ -53,7 +53,7 @@ const commitOptimisedImages = async optimisedImages => {
   const treeBlobs = await convertToTreeBlobs({
     owner,
     repo,
-    images: optimisedImages
+    images: optimisedImages,
   });
 
   console.log("\t * ", "Creating tree…", owner, repo, baseTree);
@@ -63,7 +63,7 @@ const commitOptimisedImages = async optimisedImages => {
     owner,
     repo,
     base_tree: baseTree,
-    tree: treeBlobs
+    tree: treeBlobs,
   });
 
   console.log("\t * ", "New tree:", newTree.data.sha);
@@ -71,9 +71,9 @@ const commitOptimisedImages = async optimisedImages => {
   const commit = await api.git.createCommit({
     owner,
     repo,
-    message: "Optimised images with calibre/image-actions",
+    message: "Optimised images with calibre/webp-optimizer",
     tree: newTree.data.sha,
-    parents: [mostRecentCommitSHA]
+    parents: [mostRecentCommitSHA],
   });
 
   console.log(
@@ -89,7 +89,7 @@ const commitOptimisedImages = async optimisedImages => {
     owner,
     repo,
     ref: `heads/${event.pull_request.head.ref}`,
-    sha: commit.data.sha
+    sha: commit.data.sha,
   });
 };
 

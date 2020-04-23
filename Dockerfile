@@ -17,16 +17,16 @@ ENV LD_LIBRARY_PATH /usr/local/lib
 # basic build tools
 RUN apt-get update \
   && apt-get install -y \
-    build-essential \
-    autoconf \
-    automake \
-    libtool \
-    nasm \
-    unzip \
-    wget \
-    git \
-    pkg-config \
-    curl
+  build-essential \
+  autoconf \
+  automake \
+  libtool \
+  nasm \
+  unzip \
+  wget \
+  git \
+  pkg-config \
+  curl
 
 RUN cd /usr/local/src \
   && wget ${MOZJPEG_URL}/v${MOZJPEG_VERSION}.tar.gz \
@@ -68,15 +68,15 @@ RUN cd /usr/local/src/vips-${VIPS_VERSION} \
 RUN curl -sL https://deb.nodesource.com/setup_11.x | bash -
 RUN apt-get install -y nodejs
 
-RUN mkdir -p /usr/local/src/image-actions
-WORKDIR /usr/local/src/image-actions
+RUN mkdir -p /usr/local/src/webp-optimizer
+WORKDIR /usr/local/src/webp-optimizer
 
-COPY package.json package-lock.json /usr/local/src/image-actions/
+COPY package.json package-lock.json /usr/local/src/webp-optimizer/
 RUN npm ci
 
 # copy in src
-COPY LICENSE README.md entrypoint.js /usr/local/src/image-actions/
-COPY src/ /usr/local/src/image-actions/src/
-COPY __tests__/ /usr/local/src/image-actions/__tests__/
+COPY LICENSE README.md entrypoint.js /usr/local/src/webp-optimizer/
+COPY src/ /usr/local/src/webp-optimizer/src/
+COPY __tests__/ /usr/local/src/webp-optimizer/__tests__/
 
-ENTRYPOINT ["/usr/local/src/image-actions/entrypoint.js"]
+ENTRYPOINT ["/usr/local/src/webp-optimizer/entrypoint.js"]
